@@ -10,6 +10,7 @@
 *.tlog
 *.exe.recipe
 *.csv
+*.json
 /Debug
 
 #Ignore thumbnails created by Windows
