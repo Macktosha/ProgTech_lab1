@@ -16,6 +16,7 @@ public:
 	string get_Name();
 	string get_Topic();
 
+
 	Conf() {}
 
 	virtual ~Conf() = default; 
@@ -26,6 +27,6 @@ public:
 		this->topic = topic;
 	}
 
-	virtual string entire_info() = 0;
+	virtual string entire_info()=0;
 
 };

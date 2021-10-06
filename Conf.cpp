@@ -17,3 +17,7 @@ void Conf::set_Name(string naming) {
 void Conf::set_Topic(string topic) {
 	this->topic = topic;
 }
+ /*string Conf::entire_info() {
+	string str = this->naming + "," + this->topic;
+	return str;
+}*/
