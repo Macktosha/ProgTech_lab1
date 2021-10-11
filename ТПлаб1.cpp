@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include "Conf.h"
 #include"Speaker.h"
 #include"Admin.h" 
@@ -26,10 +25,10 @@ int main()
 	cout << test[0].T->entire_info();
 	delete S;*/
 	List lst;
-	++lst;
+	   ++lst;
+		lst.Print_list();
 	
-
-	lst.Print_list();
+		
  		return 0;
 }
 

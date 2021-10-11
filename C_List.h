@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include "Conf.h"
 using namespace std;
 
@@ -38,10 +39,13 @@ public:
 	// Получение количества элементов, находящихся в списке
 	int GetCount();
 
+	void to_File();
+
 private:
 	Element* Head;
 	Element* Tail;
 
+	
 	int count;
 
 

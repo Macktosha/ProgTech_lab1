@@ -28,5 +28,6 @@ public:
 	}
 
 	virtual string entire_info()=0;
+	
 
 };

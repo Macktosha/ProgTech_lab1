@@ -24,3 +24,4 @@ string Speaker::entire_info() {
 
 	return str;
 }
+

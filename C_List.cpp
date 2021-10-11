@@ -35,6 +35,10 @@ List& List::operator++()//добавление в конец префикс
     
     if (choice == 1) {
         Speaker* my_data = new Speaker;
+        fstream fspeak;
+        fspeak.open("speakers.csv", ios::out | ( my_data->lines ? ios::app : ios::trunc));
+//заполнение нового объекта
+       
         cout << "\nEnter the name: ";
         cin >> buffer;
         my_data->set_Name(buffer);
@@ -52,6 +56,10 @@ List& List::operator++()//добавление в конец префикс
         my_data->set_Annot(buffer);
 
         temp->data = my_data;
+
+        fspeak << my_data->entire_info() << endl;
+        fspeak.close();
+        my_data->lines++;
     }
     else if (choice == 2) {
         Admin* my_data = new Admin;
@@ -162,15 +170,64 @@ List& List::operator--(int) {//удаление из начала постфикс
 
 List& operator++(List& L2, int)//добавление в начало постфикс френд
 {
-    Conf* data = new Speaker;
-    
-    // создание нового элемента
+    string buffer;
+    int choice = 0;
+    cout << "Adding to the head\nChoose type\n1 - Speaker\n2 - Admin\n3 - Schedule\n\t4-Exit" << endl;
+    cin >> choice;
     Element* temp = new Element;
+    if (choice == 1) {
+        Speaker* my_data = new Speaker;
+        cout << "\nEnter the name: ";
+        cin >> buffer;
+        my_data->set_Name(buffer);
 
-    // заполнение данными
-    temp->data = data;
-    // следующий элемент отсутствует
-    temp->pNext = L2.Head;
+        cout << "\nEnter topic theme: ";
+        cin >> buffer;
+        my_data->set_Topic(buffer);
+
+        cout << "\nEnter organization name: ";
+        cin >> buffer;
+        my_data->set_Company(buffer);
+
+        cout << "\nEnter annotation: ";
+        cin >> buffer;
+        my_data->set_Annot(buffer);
+
+        temp->data = my_data;
+    }
+    else if (choice == 2) {
+        Admin* my_data = new Admin;
+
+        cout << "\nEnter the name: ";
+        cin >> buffer;
+        my_data->set_Name(buffer);
+
+
+        cout << "\nEnter position: ";
+        cin >> buffer;
+        my_data->set_Position(buffer);
+
+        cout << "\nEnter responsibilities: ";
+        cin >> buffer;
+        my_data->set_Respons(buffer);
+
+        temp->data = my_data;
+    }
+    else if (choice == 3) {
+        Sched* my_data = new Sched;
+
+        cout << "\nEnter date: ";
+        cin >> buffer;
+        my_data->set_Date(buffer);
+
+        cout << "\nEnter timetable: ";
+        cin >> buffer;
+        my_data->set_Ttable(buffer);
+
+        temp->data = my_data;
+    }
+    
+
 
     if (L2.Head == NULL)
     {

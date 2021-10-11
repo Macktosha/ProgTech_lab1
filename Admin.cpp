@@ -19,7 +19,6 @@ string Admin::get_Respons() {
 string Admin::entire_info() {
 
 	string str = this->get_Name() + ","
-		+ this->get_Topic() + ","
 		+ this->position + ","
 		+ this->respons;
 

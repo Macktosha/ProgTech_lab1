@@ -5,8 +5,11 @@ class Speaker : public Conf {
 private:
 	string company,
 		annotation;
+	
 	public:
-		Speaker(){}
+		
+		int lines;
+		Speaker() { lines = 0; }
 
 		Speaker(string naming,string topic,string company,string annotation): Conf (naming,topic) {
 			this->company = company;
@@ -22,4 +25,5 @@ private:
 		string get_Annot();
 
 		virtual string entire_info() override;
+		
 };
