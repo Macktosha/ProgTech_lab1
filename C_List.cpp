@@ -1,8 +1,10 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "C_List.h"
 #include "Conf.h"
 #include "Sched.h"
 #include "Admin.h"
 #include "Speaker.h"
+#include <string>
 
 #include <iostream>
 
@@ -12,6 +14,7 @@ List::List()
     // Изначально список пуст
     Head = Tail = NULL;
     count = 0;
+    cnt_sp = cnt_ad = cnt_sc = 0;
 }
 
 List::~List()
@@ -35,8 +38,10 @@ List& List::operator++()//добавление в конец префикс
     
     if (choice == 1) {
         Speaker* my_data = new Speaker;
-        fstream fspeak;
-        fspeak.open("speakers.csv", ios::out | ( my_data->lines ? ios::app : ios::trunc));
+        fstream f_speak;
+        f_speak.open("speakers.csv", ios::out | ( cnt_sp ? ios::app : ios::trunc));
+
+
 //заполнение нового объекта
        
         cout << "\nEnter the name: ";
@@ -57,13 +62,15 @@ List& List::operator++()//добавление в конец префикс
 
         temp->data = my_data;
 
-        fspeak << my_data->entire_info() << endl;
-        fspeak.close();
+        f_speak << my_data->entire_info() << endl;
+        f_speak.close();
         my_data->lines++;
+        cnt_sp++;
     }
     else if (choice == 2) {
         Admin* my_data = new Admin;
-
+        fstream f_adm;
+        f_adm.open("admins.csv", ios::out | (cnt_ad ? ios::app : ios::trunc));
         cout << "\nEnter the name: ";
         cin >> buffer;
         my_data->set_Name(buffer);
@@ -78,10 +85,16 @@ List& List::operator++()//добавление в конец префикс
         my_data->set_Respons(buffer);
 
         temp->data = my_data;
+
+        f_adm << my_data->entire_info() << endl;
+        f_adm.close();
+        my_data->lines++;
+        cnt_ad++;
     }
     else if (choice == 3) {
         Sched* my_data = new Sched;
-
+        fstream f_sched;
+        f_sched.open("schedule.csv", ios::out | (cnt_sc ? ios::app : ios::trunc));
         cout << "\nEnter date: ";
         cin >> buffer;
         my_data->set_Date(buffer);
@@ -91,6 +104,10 @@ List& List::operator++()//добавление в конец префикс
         my_data->set_Ttable(buffer);
 
         temp->data = my_data;
+        f_sched << my_data->entire_info() << endl;
+        f_sched.close();
+        my_data->lines++;
+        cnt_sc++;
     }
     
     
@@ -177,6 +194,10 @@ List& operator++(List& L2, int)//добавление в начало постфикс френд
     Element* temp = new Element;
     if (choice == 1) {
         Speaker* my_data = new Speaker;
+        fstream f_speak;
+        f_speak.open("speakers.csv", ios::out | (L2.cnt_sp ? ios::app : ios::trunc));
+        //заполнение нового объекта
+
         cout << "\nEnter the name: ";
         cin >> buffer;
         my_data->set_Name(buffer);
@@ -194,10 +215,16 @@ List& operator++(List& L2, int)//добавление в начало постфикс френд
         my_data->set_Annot(buffer);
 
         temp->data = my_data;
+
+        f_speak << my_data->entire_info() << endl;
+        f_speak.close();
+        my_data->lines++;
+        L2.cnt_sp++;
     }
     else if (choice == 2) {
         Admin* my_data = new Admin;
-
+        fstream f_adm;
+        f_adm.open("admins.csv", ios::out | (L2.cnt_ad ? ios::app : ios::trunc));
         cout << "\nEnter the name: ";
         cin >> buffer;
         my_data->set_Name(buffer);
@@ -212,10 +239,16 @@ List& operator++(List& L2, int)//добавление в начало постфикс френд
         my_data->set_Respons(buffer);
 
         temp->data = my_data;
+
+        f_adm << my_data->entire_info() << endl;
+        f_adm.close();
+        my_data->lines++;
+        L2.cnt_ad++;
     }
     else if (choice == 3) {
         Sched* my_data = new Sched;
-
+        fstream f_sched;
+        f_sched.open("schedule.csv", ios::out | (L2.cnt_sc ? ios::app : ios::trunc));
         cout << "\nEnter date: ";
         cin >> buffer;
         my_data->set_Date(buffer);
@@ -225,6 +258,10 @@ List& operator++(List& L2, int)//добавление в начало постфикс френд
         my_data->set_Ttable(buffer);
 
         temp->data = my_data;
+        f_sched << my_data->entire_info() << endl;
+        f_sched.close();
+        my_data->lines++;
+        L2.cnt_sc++;
     }
     
 
@@ -283,4 +320,71 @@ void List::Print_list()
     }
 
     cout << "Tail of the list\n\n" << endl;
+}
+
+List& List::read_Speaker() {
+
+   
+    fstream f_sp;
+    f_sp.open("speakers.csv", ios::in);
+    string line1;
+   
+    char* words;
+    //считываем строку 
+    while (getline(f_sp, line1)) {
+        int line_size = line1.size();
+        char* s_data = new char[line_size + 1];
+        string *sp_info = new string[4];
+
+         strcpy(s_data, line1.c_str());
+
+
+        //поиск слов через запятую и заполняем массив для заполнения в поля объекта
+        words = strtok(s_data, ",");
+        int i = 0;
+        while (words != NULL) {
+            sp_info[i] = string(words);
+            words = strtok(NULL, ",");
+            i++;
+        }
+        Speaker* speak_f = new Speaker;
+        speak_f->set_Name(sp_info[0]);
+        speak_f->set_Topic(sp_info[1]);
+        speak_f->set_Company(sp_info[2]);
+        speak_f->set_Annot(sp_info[3]);
+
+        speak_f->lines++;
+
+        //добавление в список 
+        Element* temp = new Element;
+
+        temp->data = speak_f;
+        temp->pNext = NULL;
+
+        if (count == 0)
+        {
+            temp->pNext = nullptr;
+            Head = Tail = temp;
+        }
+        else {
+            Element* p = Head;
+
+            while (p->pNext != NULL)
+                p = p->pNext;
+
+            p->pNext = temp;
+        }
+        count++;
+        cnt_sp++;
+        delete[] s_data;
+        delete[] sp_info;
+    }
+   
+    
+   
+    
+    f_sp.close();
+    return *this;
+  
+
 }

@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include <fstream>
 #include <string>
 #include "Conf.h"
@@ -25,10 +26,10 @@ int main()
 	cout << test[0].T->entire_info();
 	delete S;*/
 	List lst;
-	   ++lst;
+	lst.read_Speaker();
+	   
 		lst.Print_list();
-	
-		
+				
  		return 0;
 }
 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "Conf.h"
+
 using namespace std;
 
 #pragma once 
@@ -18,8 +19,6 @@ class List
 public:
 	List();
 	~List();
-
-
 
 	// (Удаляется головной элемент)
 	void Del_head();
@@ -39,14 +38,20 @@ public:
 	// Получение количества элементов, находящихся в списке
 	int GetCount();
 
-	void to_File();
+	List& read_Speaker();
+
+	
+
+	
 
 private:
 	Element* Head;
 	Element* Tail;
+	
 
 	
 	int count;
+	int cnt_sp, cnt_sc, cnt_ad;
 
 
 
