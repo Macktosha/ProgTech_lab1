@@ -26,7 +26,7 @@ int main()
 	cout << test[0].T->entire_info();
 	delete S;*/
 	List lst;
-	lst.read_Speaker();
+	lst.file_Manager.recovery(lst);
 	   
 		lst.Print_list();
 				

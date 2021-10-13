@@ -1,11 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "C_List.h"
-#include "Conf.h"
-#include "Sched.h"
-#include "Admin.h"
-#include "Speaker.h"
-#include <string>
-
 #include <iostream>
 
 
@@ -322,69 +316,4 @@ void List::Print_list()
     cout << "Tail of the list\n\n" << endl;
 }
 
-List& List::read_Speaker() {
 
-   
-    fstream f_sp;
-    f_sp.open("speakers.csv", ios::in);
-    string line1;
-   
-    char* words;
-    //считываем строку 
-    while (getline(f_sp, line1)) {
-        int line_size = line1.size();
-        char* s_data = new char[line_size + 1];
-        string *sp_info = new string[4];
-
-         strcpy(s_data, line1.c_str());
-
-
-        //поиск слов через запятую и заполняем массив для заполнения в поля объекта
-        words = strtok(s_data, ",");
-        int i = 0;
-        while (words != NULL) {
-            sp_info[i] = string(words);
-            words = strtok(NULL, ",");
-            i++;
-        }
-        Speaker* speak_f = new Speaker;
-        speak_f->set_Name(sp_info[0]);
-        speak_f->set_Topic(sp_info[1]);
-        speak_f->set_Company(sp_info[2]);
-        speak_f->set_Annot(sp_info[3]);
-
-        speak_f->lines++;
-
-        //добавление в список 
-        Element* temp = new Element;
-
-        temp->data = speak_f;
-        temp->pNext = NULL;
-
-        if (count == 0)
-        {
-            temp->pNext = nullptr;
-            Head = Tail = temp;
-        }
-        else {
-            Element* p = Head;
-
-            while (p->pNext != NULL)
-                p = p->pNext;
-
-            p->pNext = temp;
-        }
-        count++;
-        cnt_sp++;
-        delete[] s_data;
-        delete[] sp_info;
-    }
-   
-    
-   
-    
-    f_sp.close();
-    return *this;
-  
-
-}

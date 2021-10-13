@@ -2,10 +2,14 @@
 #include <iostream>
 #include <fstream>
 #include "Conf.h"
+#include "Sched.h"
+#include "Admin.h"
+#include "Speaker.h"
+#include <string>
 
 using namespace std;
 
-#pragma once 
+
 
 
 typedef struct Element
@@ -16,6 +20,23 @@ typedef struct Element
 
 class List
 {
+private:
+	Element* Head;
+	Element* Tail;
+	class file_Mngr {
+	public:
+		void recovery(List& L);
+		List& refresh(List& L);
+	private:
+		List& read_Speaker(List& L2);
+		List& read_Admin(List& L2);
+		List& read_Schedule(List& L2);
+	};
+
+
+	int count;
+	int cnt_sp, cnt_sc, cnt_ad;
+
 public:
 	List();
 	~List();
@@ -38,20 +59,13 @@ public:
 	// Получение количества элементов, находящихся в списке
 	int GetCount();
 
-	List& read_Speaker();
+	file_Mngr file_Manager;//вспомогательный класс для работы с файлами 
 
 	
 
 	
 
-private:
-	Element* Head;
-	Element* Tail;
-	
 
-	
-	int count;
-	int cnt_sp, cnt_sc, cnt_ad;
 
 
 
