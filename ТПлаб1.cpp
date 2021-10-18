@@ -13,10 +13,9 @@ int main()
 {
 	List lst;
 	lst.file_Manager.recovery(lst);
-	int choice, x, value =0;
+	int choice, x =0;
 	bool exit = true;
-	bool exit2 = true;
-	bool exit3 = true;
+	
 	
 	while (exit) {
 		system("cls");
@@ -24,7 +23,9 @@ int main()
 		cout << "5 - Print list\n6 - Delete exact element\n7 - Edit exact elem\n\t8 - Exit" << endl;
 		cin >> choice;
 
-		while (choice < 0 || choice>8) {
+		while (choice < 0 || choice>8||cin.fail()) {
+			cin.clear();
+			cin.ignore(32767, '\n');//очистка некорректного ввода 
 			cout << "Incorrect input, enter again" << endl;
 			cin >> choice;
 		}

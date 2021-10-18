@@ -4,9 +4,22 @@
 List& List::file_Mngr::read_Speaker(List& L2) {
 
     fstream f_sp;
-    f_sp.open("speakers.csv", ios::in);
+    try
+    {
+        f_sp.open("speakers.csv", ios::in);
+        if (!f_sp.is_open())
+            throw "Unable to open speakers.csv file";
+    }
+    catch (const char* exp)
+    {
+        cerr << exp << endl;
+        return L2;
+    }
+    
+    
+    
     string line1;
-
+   
     char* words;
     //считываем строку 
     while (getline(f_sp, line1)) {
@@ -18,12 +31,20 @@ List& List::file_Mngr::read_Speaker(List& L2) {
 
 
         //поиск слов через запятую и заполняем массив для заполнения в поля объекта
-        words = strtok(s_data, ",");
-        int i = 0;
-        while (words != NULL) {
-            sp_info[i] = string(words);
-            words = strtok(NULL, ",");
-            i++;
+        try {
+            words = strtok(s_data, ",");
+            if (!words)
+                throw "check data in the file";
+            int i = 0;
+            while (words != NULL) {
+                sp_info[i] = string(words);
+                words = strtok(NULL, ",");
+                i++;
+            }
+        }
+        catch (const char* exp) {
+            cerr << exp << endl;
+            return L2;
         }
         Speaker* speak_f = new Speaker;
         speak_f->set_Name(sp_info[0]);
@@ -66,8 +87,18 @@ List& List::file_Mngr::read_Speaker(List& L2) {
 }
 
 List& List::file_Mngr::read_Admin(List& L2) {
-    fstream f_adm;
-    f_adm.open("admins.csv", ios::in);
+    fstream f_adm; 
+    try
+    {
+        f_adm.open("admins.csv", ios::in);
+        if (!f_adm.is_open())
+            throw "Unable to open admins.csv file";
+    }
+    catch (const char* exp)
+    {
+        cerr << exp << endl;
+        return L2;
+    }
     string line1;
 
     char* words;
@@ -81,12 +112,20 @@ List& List::file_Mngr::read_Admin(List& L2) {
 
 
         //поиск слов через запятую и заполняем массив для заполнения в поля объекта
-        words = strtok(s_data, ",");
+        try{
+            words = strtok(s_data, ",");
+            if (!words)
+                throw "check data in the file";
         int i = 0;
         while (words != NULL) {
             sp_info[i] = string(words);
             words = strtok(NULL, ",");
             i++;
+        }
+    }
+        catch(const char* exp){
+            cerr << exp << endl;
+            return L2;
         }
         Admin* adm_f = new Admin;
         adm_f->set_Name(sp_info[0]);
@@ -129,7 +168,17 @@ List& List::file_Mngr::read_Admin(List& L2) {
 
 List& List::file_Mngr::read_Schedule(List& L2) {
     fstream f_sched;
-    f_sched.open("schedule.csv", ios::in);
+    try
+    {
+        f_sched.open("schedule.csv", ios::in);
+        if (!f_sched.is_open())
+            throw "Unable to open schedule.csv file";
+    }
+    catch (const char* exp)
+    {
+        cerr << exp << endl;
+        return L2;
+    }
     string line1;
 
     char* words;
@@ -143,12 +192,20 @@ List& List::file_Mngr::read_Schedule(List& L2) {
 
 
         //поиск слов через запятую и заполняем массив для заполнения в поля объекта
-        words = strtok(s_data, ",");
-        int i = 0;
-        while (words != NULL) {
-            sp_info[i] = string(words);
-            words = strtok(NULL, ",");
-            i++;
+        try {
+            words = strtok(s_data, ",");
+            if (!words)
+                throw "check data in the file";
+            int i = 0;
+            while (words != NULL) {
+                sp_info[i] = string(words);
+                words = strtok(NULL, ",");
+                i++;
+            }
+        }
+        catch (const char* exp) {
+            cerr << exp << endl;
+            return L2;
         }
         Sched* sched_f = new Sched;
         sched_f->set_Date(sp_info[0]);
@@ -198,7 +255,17 @@ void List::file_Mngr::recovery(List& L) {
 void List::file_Mngr::refresh(List& L) {
     fstream f_sp,f_adm,f_sched;
      //speaker refresh
-    f_sp.open("speakers.csv", ios::trunc | ios::out) ;
+    try
+    {
+        f_sp.open("speakers.csv", ios::trunc| ios::out);
+        if (!f_sp.is_open())
+            throw "Unable to open speakers.csv file";
+    }
+    catch (const char* exp)
+    {
+        cerr << exp << endl;
+        return;
+    }
     
     if (L.count == 0) {
         cout << "The list is empty" << endl;
@@ -217,7 +284,17 @@ void List::file_Mngr::refresh(List& L) {
     f_sp.close();
 
     ///admin refresh
-    f_adm.open("admins.csv", ios::trunc| ios::out);
+    try
+    {
+        f_adm.open("admins.csv", ios::trunc | ios::out);
+        if (!f_adm.is_open())
+            throw "Unable to open admins.csv file";
+    }
+    catch (const char* exp)
+    {
+        cerr << exp << endl;
+        return;
+    }
 
     if (L.count == 0) {
         cout << "The list is empty" << endl;
@@ -237,7 +314,17 @@ void List::file_Mngr::refresh(List& L) {
 
     //schedule refresh
 
-    f_sched.open("schedule.csv", ios::trunc | ios::out);
+    try
+    {
+        f_sched.open("schedule.csv", ios::trunc | ios::out);
+        if (!f_sched.is_open())
+            throw "Unable to open schedule.csv file";
+    }
+    catch (const char* exp)
+    {
+        cerr << exp << endl;
+        return;
+    }
 
     if (L.count == 0) {
         cout << "The list is empty" << endl;
