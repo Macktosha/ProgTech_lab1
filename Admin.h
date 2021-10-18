@@ -1,5 +1,6 @@
 #pragma once
 #include "Conf.h"
+#include <iostream>
 
 using namespace std; 
 
@@ -26,4 +27,5 @@ public:
 	string get_Respons();
 
 	virtual string entire_info() override;
+	virtual void edit_info() override;
 };

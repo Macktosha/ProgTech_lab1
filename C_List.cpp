@@ -347,6 +347,35 @@ List& List::delete_elem(int n) {
         delete temp;
         this->file_Manager.refresh(*this);
         count--; // уменьшаем размер списка
-
+        return *this;
     }
+    else {
+        cout << "An error occured, please check your data " << endl;
+        return *this;
+    }
+}
+
+List& List::edit_elem(int n) {
+    // запоминаем адрес головного элемента
+    Element* temp = Head;
+    // Пока еще есть элементы
+
+    if (count == 0) {
+        cout << "The list is empty" << endl;
+        return *this;
+    }
+    
+    int i = 0;
+    while (i<=n)
+    {
+        if (i == n) {
+            temp->data->edit_info();
+
+            break;
+       }
+        temp = temp->pNext;
+        i++;
+    }
+    return *this;
+   
 }

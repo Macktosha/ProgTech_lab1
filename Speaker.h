@@ -1,5 +1,6 @@
 #pragma once
 #include "Conf.h"
+#include <iostream>
 using namespace std;
 class Speaker : public Conf {
 private:
@@ -25,5 +26,6 @@ private:
 		string get_Annot();
 
 		virtual string entire_info() override;
+		virtual void edit_info() override;
 		
 };

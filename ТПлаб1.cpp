@@ -11,26 +11,89 @@ using namespace std;
 
 int main()
 {
-	/*struct test
-	{
-		Conf* T;
-
-	}test[3];
-
-	Sched* S = new Sched;
-	S->set_Date("today");
-	S->set_Ttable("blah");
-
-	test[0].T=S;
-
-	cout << test[0].T->entire_info();
-	delete S;*/
 	List lst;
 	lst.file_Manager.recovery(lst);
-	lst.Print_list();
-	lst.delete_elem(1);
-	   
-	lst.Print_list();
+	int choice, x, value =0;
+	bool exit = true;
+	bool exit2 = true;
+	bool exit3 = true;
+	
+	while (exit) {
+		system("cls");
+		cout << "Choose the command to work with List\n1 - Add element from the head\n2 - Delete element from the head\n3 - Add element to the tail\n4 - Delete element from the tail" << endl;
+		cout << "5 - Print list\n6 - Delete exact element\n7 - Edit exact elem\n\t8 - Exit" << endl;
+		cin >> choice;
+
+		while (choice < 0 || choice>8) {
+			cout << "Incorrect input, enter again" << endl;
+			cin >> choice;
+		}
+
+		switch (choice)
+		{
+		case 1:
+			lst++;
+			system("pause");
+			break;
+		case 2:
+			lst--;
+			system("pause");
+			break;
+
+		case 3:
+			++lst;
+			system("pause");
+			break;
+
+		case 4:
+			--lst;
+			system("pause");
+			break;
+		case 5:
+			cout << "Elements:" << lst.GetCount() << endl;
+			lst.Print_list();
+			system("pause");
+			break;
+		case 6:
+			lst.Print_list();
+			cout << "Choose the elem to delete" << endl;
+			cin >> x;
+			while (x < 1 || x>lst.GetCount() + 1) {
+				cout << "Incorrect input, enter again" << endl;
+				cin >> x;
+			}
+			lst.delete_elem(x - 1);
+			system("cls");
+			cout << "Check the result\n\n" << endl;
+			lst.Print_list();
+			break;
+		case 7:
+			system("cls");
+			lst.Print_list();
+			cout << "Please choose elem to edit" << endl;
+			cin >> x;
+			while (x < 1 || x> lst.GetCount()+1) {
+				cout << "Incorrect input, enter again" << endl;
+				cin >> x;
+			}
+			lst.edit_elem(x - 1);
+			lst.file_Manager.refresh(lst);
+			break;
+
+		case 8:
+			exit = false;
+			break;
+
+		default:
+			cout << "undefined error" << endl;
+			exit = false;
+			system("pause");
+			break;
+		}
+
+	}
+	
+	
 				
  		return 0;
 }

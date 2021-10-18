@@ -1,5 +1,6 @@
 #pragma once
 #include "Conf.h"
+#include<iostream>
 using namespace std;
 class Sched :
     public Conf
@@ -25,5 +26,6 @@ public:
     string get_Ttable();
 
     virtual string entire_info() override;
+    virtual void edit_info() override;
 };
 

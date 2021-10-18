@@ -31,6 +31,6 @@ public:
 	}
 
 	virtual string entire_info()=0;
-	
+	virtual void edit_info() = 0;
 
 };

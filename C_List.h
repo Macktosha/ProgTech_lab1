@@ -62,6 +62,7 @@ public:
 	file_Mngr file_Manager;//вспомогательный класс для работы с файлами 
 
 	List& delete_elem(int n);
+	List& edit_elem(int n);
 
 	
 
