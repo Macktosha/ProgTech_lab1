@@ -10,7 +10,7 @@ private:
 public:
 	
 	int lines;
-	Admin() { lines = 0; }
+	Admin() { type = typeid(*this).name(); lines = 0; }
 
 	Admin(string naming, string topic, string position, string respons) : Conf(naming, topic) {
 		this->position = position;

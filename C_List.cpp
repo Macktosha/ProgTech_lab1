@@ -156,6 +156,7 @@ List& operator--(List& L1) {//удаление из конца префикс френд
         delete two;
     }
     L1.count--;
+    L1.file_Manager.refresh(L1);
     return L1;
 }
 
@@ -175,7 +176,7 @@ List& List::operator--(int) {//удаление из начала постфикс
         cout << "Now this list is empty" << endl;
 
     count--;
-
+    this->file_Manager.refresh(*this);
     return *this;
 }
 
@@ -303,17 +304,49 @@ void List::Print_list()
         return;
     }
     cout << "Head of the list" << endl;
-
+    int i = 0;
     while (temp != 0)
     {
         // Выводим данные
-        cout << temp->data->entire_info() << " " << endl;;
+        cout <<i+1<<" - " << temp->data->entire_info() << " " << endl;;
         // Переходим на следующий элемент
         temp = temp->pNext;
-
+        i++;
     }
 
     cout << "Tail of the list\n\n" << endl;
 }
 
 
+List& List::delete_elem(int n) {
+    if (count == 0) {
+        cout << "List is empty" << endl;
+        return *this;
+    }
+
+    if ((Head != NULL) && (n < count) && (n >= 0)) // если по этому номеру что-то лежит и этот элемент внутри списка
+    {
+        // Mass - объекты, которые хранятся в списке
+        Element* temp = Head, * helping = Head;
+
+        for (int i = 0; i < n; i++)
+        {
+            helping = temp; // предыдущее значение temp
+            temp = temp->pNext;
+        }
+
+        if (temp == Head) // если элемент который надо удалить первый
+        {
+            Head = temp->pNext;
+        }
+        else
+        {
+            helping->pNext = temp->pNext;
+        }
+        cout << "you've deleted " << temp->data->get_Name() << endl;
+        delete temp;
+        this->file_Manager.refresh(*this);
+        count--; // уменьшаем размер списка
+
+    }
+}

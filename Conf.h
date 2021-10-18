@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <typeinfo>
 
 
 using namespace std;
@@ -8,8 +9,10 @@ class Conf {
 private:
 	string naming;
 	string topic;
-public:
 	
+
+public:
+	string type;
 	void set_Name(string to_name);
 	void set_Topic(string ttopic);
 

@@ -9,7 +9,7 @@ private:
 	public:
 		
 		int lines;
-		Speaker() { lines = 0; }
+		Speaker() { type = typeid(*this).name(); lines = 0; }
 
 		Speaker(string naming,string topic,string company,string annotation): Conf (naming,topic) {
 			this->company = company;

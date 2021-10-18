@@ -195,7 +195,63 @@ void List::file_Mngr::recovery(List& L) {
     read_Schedule(L);
 }
 
-List& List::file_Mngr::refresh(List& L) {
+void List::file_Mngr::refresh(List& L) {
+    fstream f_sp,f_adm,f_sched;
+     //speaker refresh
+    f_sp.open("speakers.csv", ios::trunc | ios::out) ;
     
+    if (L.count == 0) {
+        cout << "The list is empty" << endl;
+        return;
+    }
+   
+    Element* temp = L.Head;
+    while (temp != 0)
+    {
+        if (temp->data->type == "class Speaker") {
+            f_sp << temp->data->entire_info() << endl;
+            
+        }
+        temp = temp->pNext;
+    }
+    f_sp.close();
 
+    ///admin refresh
+    f_adm.open("admins.csv", ios::trunc| ios::out);
+
+    if (L.count == 0) {
+        cout << "The list is empty" << endl;
+        return;
+    }
+
+     temp = L.Head;
+    while (temp != 0)
+    {
+        if (temp->data->type == "class Admin") {
+            f_adm << temp->data->entire_info() << endl;
+
+        }
+        temp = temp->pNext;
+    }
+    f_adm.close();
+
+    //schedule refresh
+
+    f_sched.open("schedule.csv", ios::trunc | ios::out);
+
+    if (L.count == 0) {
+        cout << "The list is empty" << endl;
+        return;
+    }
+
+     temp = L.Head;
+    while (temp != 0)
+    {
+        if (temp->data->type == "class Sched") {
+            f_sched << temp->data->entire_info() << endl;
+
+        }
+        temp = temp->pNext;
+    }
+    f_sched.close();
 }

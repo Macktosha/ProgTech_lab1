@@ -10,7 +10,7 @@ private:
 public:
    
     int lines;
-    Sched() { lines = 0; }
+    Sched() { type = typeid(*this).name(); lines = 0; }
     Sched(string date, string time_table) {
         this->date = date;
         this->time_table = time_table;

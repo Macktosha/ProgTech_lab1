@@ -27,8 +27,10 @@ int main()
 	delete S;*/
 	List lst;
 	lst.file_Manager.recovery(lst);
+	lst.Print_list();
+	lst.delete_elem(1);
 	   
-		lst.Print_list();
+	lst.Print_list();
 				
  		return 0;
 }

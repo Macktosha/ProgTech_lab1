@@ -26,7 +26,7 @@ private:
 	class file_Mngr {
 	public:
 		void recovery(List& L);
-		List& refresh(List& L);
+		void refresh(List& L);
 	private:
 		List& read_Speaker(List& L2);
 		List& read_Admin(List& L2);
@@ -61,7 +61,7 @@ public:
 
 	file_Mngr file_Manager;//вспомогательный класс для работы с файлами 
 
-	
+	List& delete_elem(int n);
 
 	
 
